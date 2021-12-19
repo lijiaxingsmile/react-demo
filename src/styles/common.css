@@ -1,0 +1,25 @@
+.single-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row-center {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-column-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
