@@ -1,5 +1,5 @@
-import { Button } from "antd";
+import { Button } from 'antd';
 
 export default function Index() {
-  return <Button>Index</Button>;
+	return <Button>Index</Button>;
 }

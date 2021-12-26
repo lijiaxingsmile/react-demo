@@ -5,7 +5,7 @@ import { ContentLayout, PublicLayout, UserLayout } from '../layout';
 import { routes as routesConfig } from '../config';
 import { useAsyncEffect } from '../hooks';
 
-const getLayout = name => {
+const getLayout = (name) => {
 	switch (name) {
 		case 'PublicLayout':
 			return PublicLayout;
@@ -26,7 +26,7 @@ export default function AuthRoutes() {
 	const renderRoutes = useCallback((list, needLayout = true) => {
 		if (!list || !list.length) return null;
 
-		return list.map(route => {
+		return list.map((route) => {
 			const { children, layout, component: C, path } = route;
 			let Layout = getLayout(layout);
 
@@ -50,7 +50,7 @@ export default function AuthRoutes() {
 	}, []);
 
 	// 从服务端获取路由数据
-	useAsyncEffect(async isCanceled => {
+	useAsyncEffect(async (isCanceled) => {
 		const routes = await requestRoutes();
 
 		if (isCanceled()) return;

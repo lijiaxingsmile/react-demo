@@ -32,7 +32,7 @@ const routes = [
 	{
 		title: '系统首页',
 		name: '主页',
-    icon:'icondashboard',
+		icon: 'icondashboard',
 		path: '/dashboard',
 		component: Dashboard,
 		layout: 'ContentLayout',

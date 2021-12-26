@@ -1,3 +1,3 @@
 export default function Spring() {
-  return <div>Spring</div>;
+	return <div>Spring</div>;
 }

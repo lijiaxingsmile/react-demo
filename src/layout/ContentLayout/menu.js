@@ -6,11 +6,12 @@ import { routes, IconFontUrl } from '../../config';
 // icon font 图标
 const IconFont = createFromIconfontCN({
 	scriptUrl: IconFontUrl,
+	extraCommonProps: { width: 32 },
 });
 
-const renderMenu = list => {
+const renderMenu = (list) => {
 	if (!list || !list.length) return null;
-	return list.map(menu => {
+	return list.map((menu) => {
 		if (!menu) return null;
 		const { name, children, path, icon } = menu;
 		const ICON = icon ? <IconFont type={icon} /> : '';
@@ -31,7 +32,7 @@ const renderMenu = list => {
 	});
 };
 
-const MenuJsx = renderMenu(routes.filter(menu => menu && menu.name));
+const MenuJsx = renderMenu(routes.filter((menu) => menu && menu.name));
 
 export default function NavMenu() {
 	const { pathname } = useLocation();
@@ -47,7 +48,7 @@ export default function NavMenu() {
 	};
 
 	return (
-		<Menu theme='dark' mode='inline' onClick={onClickNavMenu}>
+		<Menu theme="dark" mode="inline" onClick={onClickNavMenu}>
 			{MenuJsx}
 		</Menu>
 	);
