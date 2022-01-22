@@ -1,35 +1,57 @@
-import { Button } from 'antd';
-import { useState } from 'react';
+import { Button } from 'antd/lib/radio';
+import { useEffect, useState } from 'react';
 import { useSpring, animated } from 'react-spring';
+
 export default function Sample() {
-	// const [targetNumber, setNumber] = useState(0);
-
-	const props = useSpring({
-		to: {
-			opacity: 1,
-		},
+	const { x, o } = useSpring({
 		from: {
-			opacity: 0,
+			x: 0,
+
+			o: 0,
 		},
+		x: 100,
+
+		o: 1,
 	});
 
-	const { number } = useSpring({
-		from: {
-			number: 0,
+	const [style, animate] = useSpring(
+		{
+			x: 0,
+			config: {
+				duration: 3000,
+			},
+			onRest(...args) {
+				console.log('onRest:', args);
+			},
 		},
-		number: 100,
-	});
+		[],
+	);
+
+	const [transfromX, setTransformX] = useState(0);
+
+	useEffect(() => {
+		animate.start({ x: transfromX });
+	}, [transfromX]);
+
+	const onStart = () => {
+		setTransformX((x) => {
+			return x >= 700 ? 100 : x + 100;
+		});
+	};
 
 	return (
-		<div className="container">
-			<animated.div style={props}>
-				<h1>hello,spring</h1>
-			</animated.div>
+		<>
+			<animated.div
+				className="box"
+				style={{
+					x,
+					opacity: o,
+				}}
+			></animated.div>
 
-			<animated.div>
-				{number.to((v) => parseInt(v))}
-				{/* <Button onClick={setNumber(100)}>设置数字100</Button> */}
+			<animated.div className="box" style={style}>
+				<Button onClick={onStart}>手动控制</Button>
 			</animated.div>
-		</div>
+		</>
 	);
 }

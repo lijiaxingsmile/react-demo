@@ -4,6 +4,7 @@ import Dashboard from '../pages/Dashboard';
 import Animate from '../pages/Animate';
 import Spring from '../pages/Animate/Spring';
 import Anime from '../pages/Animate/Anime';
+import Css from '../pages/Css';
 
 // 无需登录就可访问的,PublicLayout
 // 只有未登录才可访问的, UserLayout
@@ -58,6 +59,13 @@ const routes = [
 				component: Anime,
 			},
 		],
+	},
+	{
+		title: 'CSS',
+		name: 'CSS',
+		path: '/css',
+		layout: 'ContentLayout',
+		component: Css,
 	},
 ];
 

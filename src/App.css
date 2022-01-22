@@ -1,6 +1,4 @@
 @import '~antd/dist/antd.css';
-@import './styles/reset.css';
-@import './styles/common.css';
 
 #app {
 	min-height: 100vh;
