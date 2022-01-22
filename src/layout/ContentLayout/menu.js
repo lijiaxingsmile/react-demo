@@ -1,12 +1,16 @@
 import { Menu } from 'antd';
 import { createFromIconfontCN } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { routes, IconFontUrl } from '../../config';
+import { routes, IconFontUrl, IconSize } from '../../config';
 
 // icon font 图标
 const IconFont = createFromIconfontCN({
 	scriptUrl: IconFontUrl,
-	extraCommonProps: { width: 32 },
+	extraCommonProps: {
+		style: {
+			fontSize: IconSize,
+		},
+	},
 });
 
 const renderMenu = (list) => {

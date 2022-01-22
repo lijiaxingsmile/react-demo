@@ -1,3 +1,9 @@
+import Sample from './simple';
+
 export default function Spring() {
-	return <div>Spring</div>;
+	return (
+		<div className="container">
+			<Sample />
+		</div>
+	);
 }

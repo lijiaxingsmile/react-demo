@@ -40,6 +40,7 @@ const routes = [
 	{
 		title: '动画',
 		name: '动画',
+		icon: 'iconHdonghua-xiangxiahuaru',
 		path: '/animate',
 		layout: 'ContentLayout',
 		component: Animate,
