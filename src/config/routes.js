@@ -6,6 +6,10 @@ import Spring from '../pages/Animate/Spring';
 import Anime from '../pages/Animate/Anime';
 import Css from '../pages/Css';
 
+import System from '../pages/System';
+import SystemMenu from '../pages/System/Menu';
+import SystemDict from '../pages/System/Dict';
+
 // 无需登录就可访问的,PublicLayout
 // 只有未登录才可访问的, UserLayout
 // 只有登陆后才可访问的,ContentLayout
@@ -66,6 +70,28 @@ const routes = [
 		path: '/css',
 		layout: 'ContentLayout',
 		component: Css,
+	},
+	{
+		title: '系统管理',
+		name: '系统管理',
+		icon: 'iconHdonghua-xiangxiahuaru',
+		path: '/system',
+		layout: 'ContentLayout',
+		component: System,
+		children: [
+			{
+				title: 'Menu',
+				name: 'Menu',
+				path: 'menu',
+				component: SystemMenu,
+			},
+			{
+				title: 'Dict',
+				name: 'Dict',
+				path: 'dict',
+				component: SystemDict,
+			},
+		],
 	},
 ];
 
