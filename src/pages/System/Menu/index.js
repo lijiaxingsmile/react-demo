@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { Button, Divider, Space, Table } from 'antd';
+import { useCallback, useMemo } from 'react';
+import { Button, Divider, Space, Table, Dropdown, Menu } from 'antd';
 
 const commonColumns = [
 	{
@@ -94,26 +94,82 @@ const mockDataSource = [
 	},
 ];
 
-export default function Menu() {
+export default function SystemMenu() {
+	// 编辑
 	const onEditRecord = (record) => {
 		console.log('edit:', record);
 	};
+
+	// 添加下级
+	const onAddChildren = (record) => {
+		console.log('onAddChildren');
+	};
+
+	// 详情
+	const onDetail = (record) => {
+		console.log('onDetail');
+	};
+
+	// 删除
+	const onRemove = (record) => {
+		console.log('onAddChildren');
+	};
+
+	// 批量删除
+	const onBathRemove = (record) => {
+		console.log('onAddChildren');
+	};
+
+	// 更多
+	const onMoreMenuClick = useCallback((e, record) => {
+		const key = e.key;
+		switch (key) {
+			case 'detail':
+				return onDetail(record);
+			case 'remove':
+				return onRemove(record);
+			case 'addChildren':
+				return onAddChildren(record);
+			default:
+				break;
+		}
+	}, []);
+
+	const menuMore = useCallback(
+		(record) => {
+			return (
+				<Menu onClick={(e) => onMoreMenuClick(e, record)}>
+					<Menu.Item key="detail">
+						<Button type="link">详情</Button>
+					</Menu.Item>
+					<Menu.Item key="addChildren">
+						<Button type="link">添加下级</Button>
+					</Menu.Item>
+					<Menu.Item key="remove">
+						<Button type="link">删除</Button>
+					</Menu.Item>
+				</Menu>
+			);
+		},
+		[onMoreMenuClick],
+	);
 
 	const columns = useMemo(() => {
 		const columnAction = [
 			{
 				title: '操作',
 				key: 'action',
-				width: 60,
+				width: 80,
 				align: 'center',
 				render: (_, record) => {
 					return (
-						<Space>
+						<Space split={<Divider type="vertical" />}>
 							<Button type="link" onClick={() => onEditRecord(record)}>
 								编辑
 							</Button>
-							<Divider type="vertical" />
-							<Button type="link">更多</Button>
+							<Dropdown overlay={() => menuMore(record)}>
+								<Button type="link">更多</Button>
+							</Dropdown>
 						</Space>
 					);
 				},
@@ -123,13 +179,14 @@ export default function Menu() {
 		return commonColumns
 			.map((v) => ({ ...v, align: 'center' }))
 			.concat(columnAction);
-	}, []);
+	}, [menuMore]);
 
 	return (
 		<div>
-			<Button type="primary" className="mb-2">
-				添加菜单
-			</Button>
+			<Space size="large">
+				<Button type="primary">添加菜单</Button>
+				<Button type="primary">批量删除</Button>
+			</Space>
 			<Table columns={columns} dataSource={mockDataSource} rowKey="sort" />
 		</div>
 	);

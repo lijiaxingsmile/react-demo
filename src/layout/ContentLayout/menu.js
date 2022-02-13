@@ -52,7 +52,7 @@ export default function NavMenu() {
 	};
 
 	return (
-		<Menu theme="dark" mode="inline" onClick={onClickNavMenu}>
+		<Menu theme="light" mode="inline" onClick={onClickNavMenu}>
 			{MenuJsx}
 		</Menu>
 	);

@@ -21,7 +21,7 @@ import SystemDict from '../pages/System/Dict';
 // component: 渲染组件. 嵌套路由如果写component,则内部必须要有一个<Outlet />来渲染子组件
 // layout: 布局组件, 写为字符串避免互相引用,,嵌套路由只在父级组件写,子组件的 Layout 不生效 ,
 
-const routes = [
+export const routes = [
 	{
 		title: '首页',
 		path: '/',
@@ -95,4 +95,8 @@ const routes = [
 	},
 ];
 
-export default routes;
+export const baseRouteMap = {
+	index: ['/'],
+	login: ['/login'],
+	dashboard: ['/dashboard'],
+};

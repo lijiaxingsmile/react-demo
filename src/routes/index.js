@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Route, HashRouter, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { ContentLayout, PublicLayout, UserLayout } from '../layout';
 import { routes as routesConfig } from '../config';
@@ -58,9 +58,5 @@ export default function AuthRoutes() {
 		setRoutesJSX(result);
 	}, []);
 
-	return (
-		<HashRouter>
-			<Routes>{routesJSX}</Routes>
-		</HashRouter>
-	);
+	return <Routes>{routesJSX}</Routes>;
 }

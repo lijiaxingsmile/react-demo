@@ -2,15 +2,16 @@
 	min-height: 100vh !important;
 }
 
-.content-layout-slider {
+.content-layout-header {
+	height: 48px !important;
+	background-color: #001529 !important;
+	color: #fff !important;
 }
-
 .content-layout-content-container {
 	/* background-color: #fff; */
 }
 
-.content-layout-header {
-	background-color: #fff !important;
+.content-layout-slider {
 }
 
 .trigger {
@@ -28,7 +29,7 @@
 /* ======================== */
 
 .content-layout-content {
-	margin: 24px 16px 0;
+	margin: 24px;
 	padding: 24px;
 	background-color: #fff;
 }
