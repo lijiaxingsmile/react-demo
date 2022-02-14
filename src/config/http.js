@@ -14,3 +14,5 @@ export const responseErrorCodeMap = {
 export const api_login = '/login';
 
 export const api_user = '/auth/user';
+
+export const api_menus = '/auth/menus';

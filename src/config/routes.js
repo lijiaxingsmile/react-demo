@@ -80,14 +80,14 @@ export const routes = [
 		component: System,
 		children: [
 			{
-				title: 'Menu',
-				name: 'Menu',
+				title: '菜单设置',
+				name: '菜单设置',
 				path: 'menu',
 				component: SystemMenu,
 			},
 			{
-				title: 'Dict',
-				name: 'Dict',
+				title: '字典设置',
+				name: '字典设置',
 				path: 'dict',
 				component: SystemDict,
 			},

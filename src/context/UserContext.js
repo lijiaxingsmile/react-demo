@@ -11,7 +11,7 @@ import { api_user } from 'config/http';
 
 const UserContext = React.createContext();
 
-const UserContextProvider = ({ children }) => {
+export const UserContextProvider = ({ children }) => {
 	const [user, setUser] = React.useState();
 	const [permission, setPermission] = React.useState();
 	const [token, setToken] = React.useState();
@@ -33,15 +33,7 @@ const UserContextProvider = ({ children }) => {
 		return !!token;
 	}, [token]);
 
-	// 自动登录逻辑
-	useAsyncEffect(async () => {
-		const token = await authProviderToken();
-		if (!token) return;
-		setToken(token);
-	}, []);
-
-	// 路由变化获取用户信息和权限
-	useAsyncEffect(async () => {
+	const getUser = useCallback(async () => {
 		if (!token) return;
 		let response = {};
 		try {
@@ -54,7 +46,18 @@ const UserContextProvider = ({ children }) => {
 		const { data = {} } = response;
 		setUser(data.user);
 		setPermission(data.permission);
-	}, [pathname]);
+	}, [token]);
+
+	// 自动登录逻辑
+	useEffect(() => {
+		const token = authProviderToken();
+		if (!token) return;
+		setToken(token);
+		getUser();
+	}, [getUser]);
+
+	// 路由变化获取用户信息和权限
+	useAsyncEffect(getUser, [pathname]);
 
 	return (
 		<>
@@ -78,5 +81,3 @@ export const useAuth = () => {
 	const auth = useContext(UserContext);
 	return auth;
 };
-
-export default UserContextProvider;

@@ -10,8 +10,8 @@ export default function UserMenu() {
 
 	const userMenu = (
 		<Menu>
-			<Menu.Item>个人中心</Menu.Item>
-			<Menu.Item>个人设置</Menu.Item>
+			<Menu.Item key="userCenter">个人中心</Menu.Item>
+			<Menu.Item key="userSetting">个人设置</Menu.Item>
 		</Menu>
 	);
 

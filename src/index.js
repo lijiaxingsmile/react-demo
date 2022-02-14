@@ -1,26 +1,15 @@
+import './wdyr';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { ConfigProvider } from 'antd';
-import zhCN from 'antd/lib/locale/zh_CN';
+import Context from 'context';
 import './index.css';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import UserContext from './context/UserContext';
-import { HashRouter } from 'react-router-dom';
-
-const queryClient = new QueryClient();
 
 ReactDOM.render(
 	<React.StrictMode>
-		<ConfigProvider locale={zhCN}>
-			<QueryClientProvider client={queryClient}>
-				<HashRouter>
-					<UserContext>
-						<App />
-					</UserContext>
-				</HashRouter>
-			</QueryClientProvider>
-		</ConfigProvider>
+		<Context>
+			<App />
+		</Context>
 	</React.StrictMode>,
 	document.getElementById('root'),
 );

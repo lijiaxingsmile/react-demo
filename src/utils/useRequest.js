@@ -75,7 +75,7 @@ export const request = async (url, options) => {
 export function useRequest() {
 	const auth = useAuth();
 	return useCallback(
-		(url, data) => request(url, { ...data, token: auth.token }),
+		(url, option) => request(url, { ...option, token: auth.token }),
 		[auth],
 	);
 }

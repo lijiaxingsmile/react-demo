@@ -7,6 +7,11 @@
 	background-color: #001529 !important;
 	color: #fff !important;
 }
+
+.content-layout-header.mobile {
+	padding: 0 8px !important;
+}
+
 .content-layout-content-container {
 	/* background-color: #fff; */
 }
@@ -32,4 +37,8 @@
 	margin: 24px;
 	padding: 24px;
 	background-color: #fff;
+	overflow: auto;
+}
+.content-layout-content.mobile {
+	margin: 0;
 }

@@ -2,11 +2,14 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { api_login } from 'config/http';
 import { useRequest } from 'utils';
 import { useAuth } from 'context';
+import React from 'react';
 
 import { useMutation } from 'react-query';
 
 export default function Login() {
 	const requestClient = useRequest();
+
+	const [remember, setRemember] = React.useState(false);
 
 	const auth = useAuth();
 
@@ -19,7 +22,7 @@ export default function Login() {
 		{
 			onSuccess: (response) => {
 				console.log('登录成功', response);
-				auth.login(response.data);
+				auth.login({ ...response.data, remember });
 			},
 		},
 	);
@@ -48,8 +51,13 @@ export default function Login() {
 								登录
 							</Button>
 						</Form.Item>
-						<Form.Item name="remember" valuePropName="checked">
-							<Checkbox>自动登录</Checkbox>
+						<Form.Item>
+							<Checkbox
+								checked={remember}
+								onChange={(e) => setRemember(e.target.checked)}
+							>
+								自动登录
+							</Checkbox>
 						</Form.Item>
 					</Form>
 				</div>

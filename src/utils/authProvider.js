@@ -20,7 +20,8 @@ export const authProviderLoginout = async () => {
 	storage.removeItem('remember');
 };
 
-export const authProviderToken = async () => {
+// 修改为同步方法,避免刷新页面闪烁
+export const authProviderToken = () => {
 	const storage = isAutoLogin() ? window.localStorage : window.sessionStorage;
 	return storage.getItem('token');
 };
