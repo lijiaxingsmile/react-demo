@@ -20,8 +20,8 @@ export const request = async (url, options) => {
 		delete config.params;
 	}
 
-	// 如果是POST,将data传递到fetch的body中
-	if (config.method.toUpperCase() === 'POST' && config.data) {
+	// 如果是POST/PUT,将data传递到fetch的body中
+	if (['POST', 'PUT'].includes(config.method.toUpperCase()) && config.data) {
 		const data = cleanObject(config.data);
 		config.body = JSON.stringify(data);
 		delete config.data;
@@ -44,11 +44,12 @@ export const request = async (url, options) => {
 		if (response.ok) {
 			data = (await response.json()) || {};
 			if (data.success || data.code === 200) {
+				if (typeof options.dataFn === 'function') {
+					return options.dataFn(data);
+				}
 				return data;
 			}
 		}
-
-		console.log('response:', response);
 
 		const errorMessage =
 			responseErrorCodeMap[response.status] ??
@@ -79,3 +80,5 @@ export function useRequest() {
 		[auth],
 	);
 }
+
+export const requestDataFn = (responseData) => responseData.data;

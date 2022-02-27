@@ -1,80 +1,53 @@
 import { useCallback, useMemo } from 'react';
-import { Button, Divider, Space, Table, Dropdown, Menu } from 'antd';
+import { Button, Divider, Space, Dropdown, Menu, Popconfirm } from 'antd';
+import StandardTable from 'components/StandardTable';
 
 const commonColumns = [
 	{
 		title: '菜单名称',
 		dataIndex: 'name',
 		key: 'name',
-		width: 100,
 	},
 	{
 		title: '菜单图标',
 		dataIndex: 'icon',
 		key: 'icon',
-		width: 100,
-	},
-	{
-		title: '菜单组件',
-		dataIndex: 'component',
-		key: 'component',
-		width: 200,
 	},
 	{
 		title: '菜单路由',
 		dataIndex: 'path',
 		key: 'path',
-		width: 200,
-	},
-	{
-		title: '菜单Layout',
-		dataIndex: 'layout',
-		key: 'layout',
-		width: 80,
 	},
 	{
 		title: '排序值',
 		dataIndex: 'sort',
 		key: 'sort',
-		width: 50,
 	},
 ];
 
-export default function SystemMenuList({ list }) {
-	// 编辑
-	const onEditRecord = useCallback((record) => {
-		console.log('edit:', record);
-	}, []);
-
-	// 添加下级
-	const onAddChildren = (record) => {
-		console.log('onAddChildren');
-	};
-
-	// 详情
-	const onDetail = (record) => {
-		console.log('onDetail');
-	};
-
-	// 删除
-	const onRemove = (record) => {
-		console.log('onAddChildren');
-	};
-
+export default function SystemMenuList({
+	list,
+	onSelectChange,
+	onEdit,
+	onAddChildren,
+	onDelete,
+	onDetail,
+}) {
 	// 更多
-	const onMoreMenuClick = useCallback((e, record) => {
-		const key = e.key;
-		switch (key) {
-			case 'detail':
-				return onDetail(record);
-			case 'remove':
-				return onRemove(record);
-			case 'addChildren':
-				return onAddChildren(record);
-			default:
-				break;
-		}
-	}, []);
+	const onMoreMenuClick = useCallback(
+		(e, record) => {
+			const key = e.key;
+			switch (key) {
+				case 'detail':
+					return onDetail(record.id);
+				case 'addChildren':
+					return onAddChildren(record.id);
+				default:
+					break;
+			}
+		},
+		[onDetail, onAddChildren],
+	);
 
 	const menuMore = useCallback(
 		(record) => {
@@ -87,12 +60,20 @@ export default function SystemMenuList({ list }) {
 						<Button type="link">添加下级</Button>
 					</Menu.Item>
 					<Menu.Item key="remove">
-						<Button type="link">删除</Button>
+						<Popconfirm
+							title="确定删除?"
+							onConfirm={() => {
+								console.log('确定删除');
+								onDelete(record.id);
+							}}
+						>
+							<Button type="link">删除</Button>
+						</Popconfirm>
 					</Menu.Item>
 				</Menu>
 			);
 		},
-		[onMoreMenuClick],
+		[onMoreMenuClick, onDelete],
 	);
 
 	const columns = useMemo(() => {
@@ -100,12 +81,14 @@ export default function SystemMenuList({ list }) {
 			{
 				title: '操作',
 				key: 'action',
-				width: 80,
-				align: 'center',
+				width: 150,
 				render: (_, record) => {
 					return (
 						<Space split={<Divider type="vertical" />}>
-							<Button type="link" onClick={() => onEditRecord(record)}>
+							<Button
+								type="link"
+								onClick={() => onEdit(record.id, record.parentId)}
+							>
 								编辑
 							</Button>
 							<Dropdown overlay={() => menuMore(record)}>
@@ -117,12 +100,18 @@ export default function SystemMenuList({ list }) {
 			},
 		];
 
-		return commonColumns
-			.map((v) => ({ ...v, align: 'center' }))
-			.concat(columnAction);
-	}, [menuMore, onEditRecord]);
+		return [...commonColumns, ...columnAction];
+	}, [menuMore, onEdit]);
 
-	return <Table columns={columns} dataSource={list} rowKey="id" />;
+	return (
+		<StandardTable
+			rowIndex={false}
+			columns={columns}
+			dataSource={list}
+			rowKey="id"
+			onSelectChange={onSelectChange}
+		/>
+	);
 }
 
 SystemMenuList.whyDidYouRender = true;
