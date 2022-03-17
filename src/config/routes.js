@@ -10,6 +10,8 @@ import System from '../pages/System';
 import SystemMenu from '../pages/System/Menu';
 import SystemDict from '../pages/System/Dict';
 
+import SortList from '../pages/SortList';
+
 // 无需登录就可访问的,PublicLayout
 // 只有未登录才可访问的, UserLayout
 // 只有登陆后才可访问的,ContentLayout
@@ -92,6 +94,13 @@ export const routes = [
 				component: SystemDict,
 			},
 		],
+	},
+	{
+		title: '列表排序',
+		name: '列表排序',
+		path: '/sortList',
+		layout: 'ContentLayout',
+		component: SortList,
 	},
 ];
 

@@ -1,12 +1,10 @@
 import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import {
-	useAsyncEffect,
 	authProviderLogin,
 	authProviderLoginout,
 	authProviderToken,
 	request,
 } from 'utils';
-import { useLocation } from 'react-router-dom';
 import { api_user } from 'config/http';
 
 const UserContext = React.createContext();
@@ -15,7 +13,6 @@ export const UserContextProvider = ({ children }) => {
 	const [user, setUser] = React.useState();
 	const [permission, setPermission] = React.useState();
 	const [token, setToken] = React.useState();
-	const { pathname } = useLocation();
 
 	// 登录之后记录是否自动登录,以便于在没有登录时自动登录
 	const login = useCallback(async (data) => {
@@ -55,9 +52,6 @@ export const UserContextProvider = ({ children }) => {
 		setToken(token);
 		getUser();
 	}, [getUser]);
-
-	// 路由变化获取用户信息和权限
-	useAsyncEffect(getUser, [pathname]);
 
 	return (
 		<>

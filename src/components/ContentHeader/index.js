@@ -1,13 +1,11 @@
 import UserMenu from 'components/UserMenu';
 import { useDevice } from 'context';
 import LogoImg from 'assets/logo.png';
+import { Link } from 'react-router-dom';
+import { baseRouteMap } from 'config';
 
 export default function ContentHeader({ ToggleEle }) {
 	const device = useDevice();
-
-	const onReloadPage = () => {
-		window.location.reload();
-	};
 
 	return (
 		<div className="flex items-center justify-between h-full ">
@@ -19,20 +17,14 @@ export default function ContentHeader({ ToggleEle }) {
 				{device.isMobile ? (
 					ToggleEle
 				) : (
-					<img
-						src={LogoImg}
-						alt="logo"
-						className="cursor-pointer"
-						style={{ width: 24 }}
-						onClick={onReloadPage}
-					/>
+					<img src={LogoImg} alt="logo" style={{ width: 24 }} />
 				)}
-				<span
-					className={device.isMobile ? 'text-lg' : 'text-2xl'}
-					onClick={device.isMobile ? onReloadPage : null}
+				<Link
+					className={'text-white ' + (device.isMobile ? 'text-lg' : 'text-2xl')}
+					to={baseRouteMap.index[0]}
 				>
 					热火
-				</span>
+				</Link>
 			</div>
 			<UserMenu />
 		</div>
