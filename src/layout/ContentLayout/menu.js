@@ -1,7 +1,10 @@
 import { Menu } from 'antd';
 import { createFromIconfontCN } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { routes, IconFontUrl, IconSize } from '../../config';
+import { IconFontUrl, IconSize } from '../../config';
+
+import { useAuth } from '../../context';
+import { useMemo } from 'react';
 
 // icon font 图标
 const IconFont = createFromIconfontCN({
@@ -36,11 +39,10 @@ const renderMenu = (list) => {
 	});
 };
 
-const MenuJsx = renderMenu(routes.filter((menu) => menu && menu.name));
-
 export default function NavMenu() {
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
+	const { permissionRoutes } = useAuth();
 
 	const onClickNavMenu = ({ keyPath }) => {
 		let path = [...keyPath];
@@ -50,6 +52,12 @@ export default function NavMenu() {
 
 		navigate(path);
 	};
+
+	const MenuJsx = useMemo(() => {
+		const menuRoutes = permissionRoutes ?? [];
+		console.log('渲染有权限的菜单:', menuRoutes);
+		return renderMenu(menuRoutes.filter((menu) => menu && menu.name));
+	}, [permissionRoutes]);
 
 	return (
 		<Menu theme="light" mode="inline" onClick={onClickNavMenu}>

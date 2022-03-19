@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { ContentLayout, PublicLayout, UserLayout } from '../layout';
-import { routes as routesConfig } from '../config';
-import { useAsyncEffect } from '../hooks';
+import { routes, Exceptions } from '../config';
 
 const getLayout = (name) => {
 	switch (name) {
@@ -19,7 +18,6 @@ const getLayout = (name) => {
 };
 
 export default function AuthRoutes() {
-	const requestRoutes = useCallback(() => Promise.resolve(routesConfig), []);
 	const [routesJSX, setRoutesJSX] = useState();
 
 	// 路由列表
@@ -49,14 +47,16 @@ export default function AuthRoutes() {
 		});
 	}, []);
 
-	// 从服务端获取路由数据
-	useAsyncEffect(async (isCanceled) => {
-		const routes = await requestRoutes();
-
-		if (isCanceled()) return;
+	// 注册路由
+	useEffect(() => {
 		const result = renderRoutes(routes);
 		setRoutesJSX(result);
-	}, []);
+	}, [renderRoutes]);
 
-	return <Routes>{routesJSX}</Routes>;
+	return (
+		<Routes>
+			{routesJSX}
+			<Route path="*" element={Exceptions.NotFound.component} />
+		</Routes>
+	);
 }

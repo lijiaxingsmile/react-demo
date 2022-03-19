@@ -4,3 +4,6 @@ export * from './routes';
 export const IconFontUrl = '//at.alicdn.com/t/font_2463553_5jnt2e3s68d.js';
 
 export const IconSize = 20;
+
+// 开发时是否拥有所有的权限,记得打包时候保持关闭状态
+export const ALL_PERMISSION = false;
