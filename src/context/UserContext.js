@@ -64,7 +64,7 @@ export const UserContextProvider = ({ children }) => {
 	// 路由权限
 	const matchRoute = useMatchRoute(location.pathname, allRoutes);
 
-	// 自动登录逻辑
+	// 页面首次加载获取用户和权限信息
 	useEffect(() => {
 		const token = authProviderToken();
 		if (!token) return;
@@ -72,12 +72,14 @@ export const UserContextProvider = ({ children }) => {
 		getUser();
 	}, [getUser]);
 
-	// 路由鉴权以及获取权限参数
+	// 路由鉴权以及获取权限信息
 	useEffect(() => {
 		if (!matchRoute) {
-			console.log('找不到路由');
 			!ALL_PERMISSION && navigate(Exceptions.PermissionError.path);
 			return;
+		}
+		if (matchRoute.title) {
+			document.title = matchRoute.title;
 		}
 		setPermission(matchRoute.permission);
 	}, [matchRoute, navigate]);

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { baseRouteMap } from 'config';
+import { baseRouteMap, sysName } from 'config';
 import UserMenu from 'components/UserMenu';
 import { useMemo } from 'react';
 
@@ -15,7 +15,7 @@ export default function PublicHeader({ user }) {
 
 		return (
 			<span to={baseRouteMap.login[0]} className="text-lg">
-				热火开发框架
+				{sysName}
 			</span>
 		);
 	}, [user.logined]);

@@ -1,8 +1,7 @@
 import UserMenu from 'components/UserMenu';
 import { useDevice } from 'context';
-import LogoImg from 'assets/logo.png';
 import { Link } from 'react-router-dom';
-import { baseRouteMap } from 'config';
+import { baseRouteMap, logoPNG, sysName } from 'config';
 
 export default function ContentHeader({ ToggleEle }) {
 	const device = useDevice();
@@ -17,13 +16,13 @@ export default function ContentHeader({ ToggleEle }) {
 				{device.isMobile ? (
 					ToggleEle
 				) : (
-					<img src={LogoImg} alt="logo" style={{ width: 24 }} />
+					<img src={logoPNG} alt="logo" style={{ width: 24 }} />
 				)}
 				<Link
 					className={'text-white ' + (device.isMobile ? 'text-lg' : 'text-2xl')}
 					to={baseRouteMap.index[0]}
 				>
-					热火
+					{sysName}
 				</Link>
 			</div>
 			<UserMenu />
