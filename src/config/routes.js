@@ -7,6 +7,9 @@ import Css from '../pages/Css';
 import System from '../pages/System';
 import SystemMenu from '../pages/System/Menu';
 import SystemDict from '../pages/System/Dict';
+import SystemDepart from '../pages/System/Depart';
+
+import SystemRole from '../pages/System/Role';
 
 import SortList from '../pages/SortList';
 
@@ -95,6 +98,18 @@ const authRoutes = [
 		layout: 'ContentLayout',
 		component: System,
 		children: [
+			{
+				title: '部门管理',
+				name: '部门管理',
+				path: 'depart',
+				component: SystemDepart,
+			},
+			{
+				title: '角色管理',
+				name: '角色管理',
+				path: 'role',
+				component: SystemRole,
+			},
 			{
 				title: '菜单设置',
 				name: '菜单设置',

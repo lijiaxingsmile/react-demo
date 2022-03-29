@@ -36,15 +36,45 @@ export const tailLayout = {
 	},
 };
 
+// 固定每项一行展示
 export const formSingleLFixedayout = {
-	labelCol: {
-		span: 5,
+	formItem: {
+		labelCol: {
+			span: 5,
+		},
+		wrapperCol: {
+			span: 17,
+		},
 	},
-	wrapperCol: {
-		span: 17,
+	action: {
+		wrapperCol: {
+			offset: 5,
+		},
 	},
 };
 
 export const stateReducer = (state, newState) => {
 	return { ...state, ...newState };
 };
+
+export const awaitTimeout = (ms) => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve();
+		}, ms);
+	});
+};
+
+export const sortFn = (sortKey = 'sort') => {
+	return (a, b) => {
+		if (a[sortKey] > b[sortKey]) {
+			return 1;
+		} else if (a[sortKey] < b[sortKey]) {
+			return -1;
+		} else {
+			return 0;
+		}
+	};
+};
+
+export const defaultSort = sortFn('sort');

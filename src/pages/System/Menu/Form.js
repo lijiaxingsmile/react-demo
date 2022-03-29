@@ -105,7 +105,7 @@ function SystemMenuForm({ id, parentID, disabled, menus }, ref) {
 			<Form
 				form={formRef}
 				size="large"
-				{...formSingleLFixedayout}
+				{...formSingleLFixedayout.formItem}
 				initialValues={formInitialValues}
 			>
 				<Form.Item label="菜单类型" name="type" rules={formValidateRules.type}>

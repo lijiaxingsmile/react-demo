@@ -18,3 +18,7 @@ export const api_user = '/auth/user';
 export const api_menus = '/auth/menus';
 
 export const api_menu = '/auth/menu';
+
+export const api_roles = '/auth/roles';
+
+export const api_role = '/auth/role';
